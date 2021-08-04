@@ -42,3 +42,28 @@ const dblclick = document.querySelector('.intro h2');
 dblclick.addEventListener(
   'dblclick', event => event.target.textContent = 'You would click me like that!'
 );
+
+const dragAndDrop = document.querySelector('.nav-link');
+dragAndDrop.addEventListener(
+  'mousedown', event => {
+    dragAndDrop.style.position = 'absolute';
+    dragAndDrop.style.zIndex = 1000;
+    dragAndDrop.style.fontSize = '1.6rem';
+    dragAndDrop.style.color = 'green';
+    dragAndDrop.style.textDecoration = 'none';
+    document.body.append(dragAndDrop);
+    moveAt(event.pageX, event.PageY);
+    function moveAt(pageX, pageY){
+      dragAndDrop.style.left = pageX - dragAndDrop.offsetWidth  / 2 + 'px';
+      dragAndDrop.style.top  = pageY - dragAndDrop.offsetHeight / 2 + 'px';
+    }
+    function onMouseMove(event){
+      moveAt(event.pageX, event.pageY);
+    }
+    document.addEventListener('mousemove', onMouseMove);
+    dragAndDrop.addEventListener('mouseup',() => {
+      document.removeEventListener('mousemove', onMouseMove);
+      dragAndDrop.onmouseup = null;
+    });
+  } 
+)
